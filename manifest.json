@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Automation HITL Sample",
+  "version": "1.0.0",
+  "description": "Sample extension demonstrating tabs, storage, scripting, messaging, and CAPTCHA detection.",
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting",
+    "activeTab",
+    "alarms",
+    "debugger"
+  ],
+
+  "host_permissions": ["http://127.0.0.1:8787/*", "<all_urls>"],
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/bootstrap.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Automation HITL"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/content.js",
+        "content/injected-hook.js",
+        "content/automate/login.js",
+        "content/automate/qbank.js",
+        "content/automate/classify.js",
+        "shared/utils.js",
+        "shared/messages.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
